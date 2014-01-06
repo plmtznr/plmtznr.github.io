@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.3.6), see www.w3.org">
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=us-ascii">
+  <meta name="Author" content="Paul Metzner homepage">
+
+  <title>Paul Metzner - Minion Pro in math mode on a Mac</title>
+  <link rel="stylesheet" href="stylesheet.css" type="text/css">
+</head>
+
+<body>
+  <h1>How to get Minion Pro to work in math mode on a Mac</h1>
+
+  <p>The how-to follows <a href=
+  "http://carlo-hamalainen.net/blog/?p=8" target="new">this
+  guide</a> for the most part. However, some adjustments had to be
+  made to get it to work on a Mac with the latest MacTeX installed.
+  If you already tried that guide but were unsuccesful, delete the
+  folder ~/Library/.texlive2009.</p>
+
+  <h2>MnSymbol</h2>
+
+  <p>Go <a href="http://www.ctan.org/tex-archive/fonts/mnsymbol/"
+  target="new">here</a> and download mnsymbol.zip. Open a Terminal
+  and type <font face="Menlo, Consolas, Courier, Courier New">mkdir
+  ~/Downloads/minionpro</font> und <font face=
+  "Menlo, Consolas, Courier, Courier New">cd
+  ~/Downloads/minionpro</font></p>
+
+  <p>Type the following commands:</p><font face=
+  "Menlo, Consolas, Courier, Courier New">unzip mnsymbol.zip<br>
+  cd mnsymbol/tex<br>
+  latex MnSymbol.ins<br>
+  mkdir -p ~/Library/texmf/tex/latex/MnSymbol/<br>
+  mkdir -p ~/Library/texmf/fonts/source/public/MnSymbol/<br>
+  mkdir -p ~/Library/texmf/doc/latex/MnSymbol/<br>
+  cp MnSymbol.sty
+  ~/Library/texmf/tex/latex/MnSymbol/MnSymbol.sty<br>
+  cd ..<br>
+  cp source/* ~/Library/texmf/fonts/source/public/MnSymbol/<br>
+  cp MnSymbol.pdf README ~/Library/texmf/doc/latex/MnSymbol/<br>
+  mkdir -p ~/Library/texmf/fonts/map/dvips/MnSymbol<br>
+  mkdir -p ~/Library/texmf/fonts/enc/dvips/MnSymbol<br>
+  mkdir -p ~/Library/texmf/fonts/type1/public/MnSymbol<br>
+  mkdir -p ~/Library/texmf/fonts/tfm/public/MnSymbol<br>
+  cp enc/MnSymbol.map ~/Library/texmf/fonts/map/dvips/MnSymbol/<br>
+  cp enc/*.enc ~/Library/texmf/fonts/enc/dvips/MnSymbol/<br>
+  cp pfb/*.pfb ~/Library/texmf/fonts/type1/public/MnSymbol/<br>
+  cp tfm/* ~/Library/texmf/fonts/tfm/public/MnSymbol/<br>
+  sudo mktexlsr<br>
+  sudo updmap-sys --enable MixedMap MnSymbol.map<br></font>
+
+  <p><a href=
+  "http://carlo-hamalainen.net/blog/myfiles/minionpro/mnsymbol-test.tex">
+  mnsymbol-test.tex</a> should compile without problems.</p>
+
+  <h2>Minion Pro</h2>
+
+  <p>Download everything from <a href=
+  "http://www.ctan.org/tex-archive/fonts/minionpro">here</a> to
+  ~/Downloads/minionpro and type the following:</p><font face=
+  "Menlo, Consolas, Courier, Courier New">mkdir
+  minionpro-scripts<br>
+  cd minionpro-scripts<br>
+  unzip ../scripts.zip<br></font>
+
+  <p>Now copy the OTF files into the local directory. Depending on
+  where you keep the files, type <font face=
+  "Menlo, Consolas, Courier, Courier New">cd otf</font> and
+  <font face="Menlo, Consolas, Courier, Courier New">find
+  ~/Library/Fonts/ -iname '*minion*pro*otf' -exec cp -v '{}' otf/
+  ';'</font>. You will need a working installation of <a href=
+  "http://www.lcdf.org/type/" target="new">lcdf-typetools</a> to
+  convert the fonts. I found the quickest and easiest way was to
+  compile it from source, but you can of course try Fink. When you
+  are done, type:</p><font face=
+  "Menlo, Consolas, Courier, Courier New">./convert.sh<br>
+  mkdir -p ~/Library/texmf/fonts/type1/adobe/MinionPro/<br>
+  cp pfb/*.pfb
+  ~/Library/texmf/fonts/type1/adobe/MinionPro/<br></font>
+
+  <p>Determine your version of Minion Pro with:</p><font face=
+  "Menlo, Consolas, Courier, Courier New">otfinfo -v
+  ~/Downloads/minionpro/scripts/otf/MinionPro-Regular.otf</font><br>
+
+  An output like <font face=
+  "Menlo, Consolas, Courier, Courier New">Version 2.015;PS
+  <b>002.000</b>;Core 1.0.38;makeotf.lib1.7.9032</font> points to
+  enc-2.000.zip. Now type:<font face=
+  "Menlo, Consolas, Courier, Courier New">cd ~/Library/texmf<br>
+  unzip ~/Downloads/MinionPro/metrics-base.zip<br>
+  unzip ~/Downloads/MinionPro/metrics-full.zip<br>
+  unzip ~/Downloads/MinionPro/enc-2.000.zip<br>
+  sudo mktexlsr<br>
+  sudo updmap-sys --enable Map=MinionPro.map<br></font>
+
+  <p>Depending on your version and the number of weights, you are
+  installing, you will have to use another enc-file and possibly
+  also metrics-opticals.zip. In any case, <a href=
+  "http://carlo-hamalainen.net/blog/myfiles/minionpro/minionpro-test.tex">
+  minionpro-test.tex</a> should no longer pose a problem for
+  <font face=
+  "Menlo, Consolas, Courier, Courier New">xelatex</font>. If you
+  have problems with the installation, you can write me an
+  email.</p>
+
+  <p><a href="index.html">Home</a></p>
+</body>
+</html>
