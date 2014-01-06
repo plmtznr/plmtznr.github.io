@@ -127,9 +127,10 @@
     <script src="js/bootstrap.min.js"></script>
     <script>
      $(document).ready(function(){
-       var height = document.getElementById('portrait').naturalHeight;
-       var relheight=$('.col-md-4').height() / 2;
-       $('.col-md-3').css('margin-top', relheight - height/2);
+     var height = document.getElementById('portrait').naturalHeight;
+     console.log(height);
+     var relheight=$('.col-md-4').height() / 2;
+     $('.col-md-3').css('margin-top', relheight - height/2);
      });
     </script>
   </body>
