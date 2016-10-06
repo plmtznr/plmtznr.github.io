@@ -3943,6 +3943,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-brand {
   color: #777;
+  font-family: "Hind";
+  font-weight: bold;
+  font-size: 24px;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
